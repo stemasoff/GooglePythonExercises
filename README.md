@@ -1,0 +1,1 @@
+Репозиторий для хранения выполненых заданий курса <a href="https://developers.google.com/edu/python">Google's Python Class.</a> 
