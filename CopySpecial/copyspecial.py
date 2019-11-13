@@ -4,14 +4,15 @@ import sys
 import re
 
 
-def get_special_paths(dir):
+def get_special_paths(pathsToSearch):
     specialPattern = '__\w*__'
     absolutePaths = []
 
-    for root, dirs, files in os.walk(dir):
-        for file in files:
-            if re.search(specialPattern, file) is not None:
-                absolutePaths.append(root + '/' + file)
+    for path in pathsToSearch:
+        for root, dirs, files in os.walk(path):
+            for file in files:
+                if re.search(specialPattern, file) is not None:
+                    absolutePaths.append(root + '/' + file)
     return absolutePaths
 
 
@@ -31,24 +32,33 @@ def main():
         print("usage: [--todir dir][--tozip zipfile] dir [dir]")
         sys.exit(1)
 
-    pathToSearch = args[-1]
-    paths = get_special_paths(pathToSearch)
-    for path in paths:
-        print(path)
 
     if args[0] == '--todir':
         todir = args[1]
         del args[0:2]
-        copy_to(paths, todir)
+
 
     if args[0] == '--tozip':
         tozip = args[1]
         del args[0:2]
-        zip_to(paths, tozip)
+
 
     if len(args) == 0:
         print("error: must specify dir")
         sys.exit(1)
+
+
+    paths = get_special_paths(args)
+    try:
+        copy_to(paths, todir)
+    except NameError:
+        pass
+
+
+    try:
+        zip_to(paths, tozip)
+    except NameError:
+        pass
 
 
 if __name__ == "__main__":
