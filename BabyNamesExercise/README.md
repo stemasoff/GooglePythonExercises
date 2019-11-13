@@ -1,4 +1,5 @@
-Part A
+**Part A**
+
 Define the extract_names() function below and change main()
 to call it.
 
@@ -6,13 +7,19 @@ For writing regex, it's nice to include a copy of the target
 text for inspiration.
 
 Suggested milestones for incremental development:
+
  -Extract the year and print it
+
  -Extract the names and rank numbers and just print them
+
  -Get the names data into a dict and print it
+
  -Build the [year, 'name rank', ... ] list and print it
+
  -Fix main() to use the extract_names list
 
-Part B
+**Part B**
+
 Suppose instead of printing the text to standard out, we want to write files containing the text.
 If the flag --summaryfile is present, do the following:
 for each input file 'foo.html',
