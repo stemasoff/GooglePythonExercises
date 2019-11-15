@@ -13,10 +13,7 @@ def extract_names(filename):
     names.append(year.group(1))
     rawListNames = re.findall(r'<tr align="right"><td>(\d+)</td><td>(\w+)', text)
 
-    sortedListNames = list()
-    for element in rawListNames:
-        sortedListNames.append(str(element[1] + ' ' + element[0]))
-
+    sortedListNames = list(map(lambda x: str(x[1] + ' ' + x[0]), rawListNames))
     sortedListNames.sort()
     names.extend(sortedListNames)
     return names
