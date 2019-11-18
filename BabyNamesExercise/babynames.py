@@ -13,6 +13,9 @@ def extract_names(filename):
     names.append(year.group(1))
     rawListNames = re.findall(r'<tr align="right"><td>(\d+)</td><td>(\w+)', text)
 
+    dictNames = {x[1]: x[0] for x in rawListNames}
+
+
     sortedListNames = list(map(lambda x: str(x[1] + ' ' + x[0]), rawListNames))
     sortedListNames.sort()
     names.extend(sortedListNames)
