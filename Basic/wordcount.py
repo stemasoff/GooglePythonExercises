@@ -40,7 +40,7 @@ def print_words(filename):
     with open(filename, 'r') as inputFile:
         words = inputFile.read().lower().split()
         text = inputFile.read()
-        
+
 
     wordCount = {}
     words.sort()
