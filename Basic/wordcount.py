@@ -36,22 +36,59 @@ import sys
 # You could write a helper utility function that reads a file
 # and builds and returns a word/count dict for it.
 # Then print_words() and print_top() can just call the utility function.
-def print_words(filename):
+def import_words(filename):
     with open(filename, 'r') as inputFile:
-        words = inputFile.read().lower().split()
         text = inputFile.read()
-        
+        words = text[:].strip().split()
 
     wordCount = {}
     words.sort()
+    symbols = '.,)(*-?:;"!`_' + "'"
     for word in words:
         if not word.isalpha():
-            word = word.strip("'").strip('.,)(*-?:;"!`').strip("'")
+            word = word.strip(symbols)
 
-
-        if word.lower() not in wordCount.keys():
+        if word.lower() not in wordCount.keys() and word != '':
             wordCount[word.lower()] = text.count(word) + text.count(word.lower())
-            print(word.lower(), wordCount[word.lower()])
+
+    return wordCount
 
 
-print_words('alice.txt')
+def print_words(filename):
+    wordCount = import_words(filename)
+    wordCountkeys = sorted(wordCount.keys())
+    sortedWordCount = {}
+    for key in wordCountkeys:
+        print(key, sortedWordCount[key])
+
+
+def print_top(filename):
+    wordCount = import_words(filename)
+    listWordCount = list(wordCount.items())
+    listWordCount.sort(key=lambda x: x[1], reverse=True)
+
+    for i in range(20):
+        if len(listWordCount) <= i:
+            break
+
+        print(str(listWordCount[i][0]) + ' ' + str(listWordCount[i][1]))
+
+
+def main():
+    if len(sys.argv) != 3:
+        print('usage: ./wordcount.py {--count | --topcount} file')
+        sys.exit(1)
+
+    option = sys.argv[1]
+    filename = sys.argv[2]
+    if option == '--count':
+        print_words(filename)
+    elif option == '--topcount':
+        print_top(filename)
+    else:
+        print('unknown option: ' + option)
+        sys.exit(1)
+
+
+if __name__ == '__main__':
+    main()
