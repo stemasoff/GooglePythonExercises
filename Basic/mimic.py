@@ -39,5 +39,48 @@ import sys
 
 def mimic_dict(filename):
     with open(filename, 'r') as inputFile:
-        text = inputFile.read()
+        words = inputFile.read().split()
 
+    mimicDict = {}
+    symbols = '`.,)(*-?:;"!`_' + "'"
+    for i in range(len(words) - 1):
+        if not words[i].isalpha():
+            words[i].strip(symbols)
+
+        if not mimicDict:
+            mimicDict[''] = [words[i]]
+
+        if words[i] not in mimicDict:
+            mimicDict[words[i]] = [words[i + 1].strip(symbols)]
+        else:
+            mimicDict[words[i]].append(words[i + 1].strip(symbols))
+    return mimicDict
+
+
+def print_mimic(mimicDict, word):
+    text = ''
+    countWords = 200
+    while countWords != 0:
+        if word not in mimicDict:
+            word = random.choice(mimicDict[''])
+
+        text = text + word + ' '
+        word = random.choice(mimicDict[word])
+        countWords -= 1
+    return text
+
+
+# Provided main(), calls mimic_dict() and mimic()
+def main():
+    if len(sys.argv) != 2:
+        print('usage: ./mimic.py file-to-read')
+        sys.exit(1)
+
+    dict = mimic_dict(sys.argv[1])
+
+    with open('randomText.txt', 'w') as outFile:
+        outFile.write(print_mimic(dict, 'Rabbit'))
+
+
+if __name__ == '__main__':
+    main()
