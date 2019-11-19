@@ -11,7 +11,7 @@ def extract_names(filename):
 
     year = re.search(r'Popularity\sin\s(\d{4})', text)
     names.append(year.group(1))
-    rawListNames = re.findall(r'<tr align="right"><td>(\d+)</td><td>(\w+)', text)
+    rawListNames = re.findall(r'<tr align="right"><td>(\d*)</td><td>(\w*)', text)
 
     dictNames = {x[1]: x[0] for x in rawListNames}
 
