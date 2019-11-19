@@ -57,9 +57,9 @@ def import_words(filename):
 def print_words(filename):
     wordCount = import_words(filename)
     wordCountkeys = sorted(wordCount.keys())
-    sortedWordCount = {}
+
     for key in wordCountkeys:
-        print(key, sortedWordCount[key])
+        print(key, wordCount[key])
 
 
 def print_top(filename):
