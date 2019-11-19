@@ -26,17 +26,7 @@ def read_urls(filename):
 			del urls[startSlice: endSlice]
 
 	if re.search(r'-\w*-\w*.jpg', urls[0]):
-		dictForSorting = {}
-		for url in urls:
-			wordToSort = re.search(r'\w*.jpg', url).group()
-			dictForSorting[wordToSort] = url
-
-		sortKeys = list(dictForSorting.keys())
-		sortKeys.sort()
-
-		urls.clear()
-		for key in sortKeys:
-			urls.append(dictForSorting[key])
+		urls.sort(key=lambda x: re.search(r'\w*.jpg', x).group())
 
 	return urls
 
