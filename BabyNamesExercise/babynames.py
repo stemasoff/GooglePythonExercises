@@ -15,9 +15,9 @@ def extract_names(filename):
 
     dictNames = {x[1]: x[0] for x in rawListNames}
 
-
-    sortedListNames = list(map(lambda x: str(x[1] + ' ' + x[0]), rawListNames))
+    sortedListNames = list(map(lambda x: x + ' ' + str(dictNames[x]), dictNames.keys()))
     sortedListNames.sort()
+
     names.extend(sortedListNames)
     return names
 
